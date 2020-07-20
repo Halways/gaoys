@@ -21,7 +21,7 @@ export default class FirstPage extends Component {
           style={{width: '100%', height: '100%'}}>
           <TouchableOpacity
             style={styles.touchable}
-            onPress={() => this.props.navigation.navigate('secondPage')}
+            onPress={() => this.props.navigation.navigate('HirePage')}
             underlayColor="white">
             <View style={styles.button1}>
               <Text style={styles.buttonText}>Hire</Text>
@@ -29,7 +29,7 @@ export default class FirstPage extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.touchable}
-            onPress={() => this.props.navigation.navigate('thirdPage')}>
+            onPress={() => this.props.navigation.navigate('ChauffeurPage')}>
             <View style={styles.button2}>
               <Text style={styles.buttonText}>Chauffeur</Text>
             </View>
@@ -76,4 +76,3 @@ const styles = StyleSheet.create({
     fontSize: 35,
   },
 });
-

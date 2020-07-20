@@ -9,17 +9,22 @@ import {
   ImageBackground,
 } from 'react-native';
 
+const axios = require('axios'); // A promise-based HTTP client
+
 export default class RegisterScene extends Component {
   username = ''; //保存用户名
   password = ''; //保存密码
   confirmPassword = ''; //保存确认密码
+  email = '';
+  firstname = '';
+  lastname = '';
+  phone = '';
 
   /**
    * 当用户名输入框值改变时，保存改变的值
    * @param  {[type]} newUsername [输入的用户名]
    */
   onUsernameChanged = (newUsername) => {
-    console.log(newUsername); //运行后可以在输入框随意输入内容并且查看log验证！
     this.username = newUsername;
   };
 
@@ -28,7 +33,6 @@ export default class RegisterScene extends Component {
    * @param  {[type]} newUsername [输入的密码]
    */
   onPasswordChanged = (newPassword) => {
-    console.log(newPassword); //运行后可以在输入框随意输入内容并且查看log验证！
     this.password = newPassword;
   };
 
@@ -37,7 +41,6 @@ export default class RegisterScene extends Component {
    * @param  {[type]} newUsername [输入的确认密码]
    */
   onConfirmPasswordChanged = (newConfirmPassword) => {
-    console.log(newConfirmPassword); //运行后可以在输入框随意输入内容并且查看log验证！
     this.confirmPassword = newConfirmPassword;
   };
 
@@ -47,31 +50,51 @@ export default class RegisterScene extends Component {
   blurTextInput = () => {
     this.refs.username.blur();
     this.refs.password.blur();
+    this.refs.firstname.blur();
+    this.refs.lastname.blur();
+    this.refs.email.blur();
+    this.refs.phone.blur();
     this.refs.confirmPassword.blur();
   };
 
   /**
    * 注册按钮，根据输入的内容判断注册是否成功
    */
-  register = () => {
-    if (this.username != '' && this.password != '') {
-      if (this.username != 'byy') {
-        if (this.password === this.confirmPassword) {
-          const {goBack} = this.props.navigation; //获取navigation的goBack方法
+  register = async () => {
+    if (this.username !== '' && this.password !== '') {
+      if (this.password === this.confirmPassword) {
+        // Configure the axios data and info and send a POST request to the server
+        const axiosConfig = {
+          method: 'post',
+          baseURL: 'http://10.0.2.2:3000',
+          url: '/api/users/',
+          data: {
+            username: this.username,
+            password: this.password,
+            firstname: this.firstname,
+            lastname: this.lastname,
+            email: this.email,
+            phone: this.phone,
+          },
+        };
+        try {
+          const response = await axios(axiosConfig);
 
-          Alert.alert('注册成功', '返回登陆', [
+          const {goBack} = this.props.navigation;
+
+          Alert.alert(response.data.message, '返回登陆', [
             {
               text: '确定',
               onPress: () => {
                 goBack();
               },
             },
-          ]); //给弹出的提示框添加事件
-        } else {
-          Alert.alert('注册失败', '密码与确认密码不同');
+          ]);
+        } catch (error) {
+          Alert.alert('Failed', error[0]);
         }
       } else {
-        Alert.alert('注册失败', '此用户名已经被注册');
+        Alert.alert('注册失败', '密码与确认密码不同');
       }
     } else {
       Alert.alert('注册失败', '用户名或密码不能为空');
@@ -95,7 +118,51 @@ export default class RegisterScene extends Component {
               autoCapitalize="none" //设置首字母不自动大写
               underlineColorAndroid={'transparent'} //将下划线颜色改为透明
               placeholderTextColor={'#ccc'} //设置占位符颜色
-              placeholder={'ID'} //设置占位符
+              placeholder={'Username'} //设置占位符
+            />
+          </View>
+          <View style={styles.inputBox}>
+            <TextInput
+              ref="firstname" //添加描述
+              onChangeText={(newFirstname) => (this.firstname = newFirstname)} //添加值改变事件
+              style={styles.input}
+              autoCapitalize="none" //设置首字母不自动大写
+              underlineColorAndroid={'transparent'} //将下划线颜色改为透明
+              placeholderTextColor={'#ccc'} //设置占位符颜色
+              placeholder={'Firstname'} //设置占位符
+            />
+          </View>
+          <View style={styles.inputBox}>
+            <TextInput
+              ref="lastname" //添加描述
+              onChangeText={(newLastname) => (this.lastname = newLastname)} //添加值改变事件
+              style={styles.input}
+              autoCapitalize="none" //设置首字母不自动大写
+              underlineColorAndroid={'transparent'} //将下划线颜色改为透明
+              placeholderTextColor={'#ccc'} //设置占位符颜色
+              placeholder={'Lastname'} //设置占位符
+            />
+          </View>
+          <View style={styles.inputBox}>
+            <TextInput
+              ref="phone" //添加描述
+              onChangeText={(newPhone) => (this.phone = newPhone)} //添加值改变事件
+              style={styles.input}
+              autoCapitalize="none" //设置首字母不自动大写
+              underlineColorAndroid={'transparent'} //将下划线颜色改为透明
+              placeholderTextColor={'#ccc'} //设置占位符颜色
+              placeholder={'Phone Number'} //设置占位符
+            />
+          </View>
+          <View style={styles.inputBox}>
+            <TextInput
+              ref="email" //添加描述
+              onChangeText={(newEmail) => (this.email = newEmail)} //添加值改变事件
+              style={styles.input}
+              autoCapitalize="none" //设置首字母不自动大写
+              underlineColorAndroid={'transparent'} //将下划线颜色改为透明
+              placeholderTextColor={'#ccc'} //设置占位符颜色
+              placeholder={'Email'} //设置占位符
             />
           </View>
           <View style={styles.inputBox}>
@@ -107,7 +174,7 @@ export default class RegisterScene extends Component {
               autoCapitalize="none" //设置首字母不自动大写
               underlineColorAndroid={'transparent'} //将下划线颜色改为透明
               placeholderTextColor={'#ccc'} //设置占位符颜色
-              placeholder={'password'} //设置占位符
+              placeholder={'Password'} //设置占位符
             />
           </View>
           <View style={styles.inputBox}>
@@ -119,7 +186,7 @@ export default class RegisterScene extends Component {
               autoCapitalize="none" //设置首字母不自动大写
               underlineColorAndroid={'transparent'} //将下划线颜色改为透明
               placeholderTextColor={'#ccc'} //设置占位符颜色
-              placeholder={'Confirm'} //设置占位符
+              placeholder={'Confirm Password'} //设置占位符
             />
           </View>
           <TouchableOpacity

@@ -6,12 +6,54 @@ import {
   View,
   Text,
   Alert,
-  Button,
-  Image,
   ImageBackground,
 } from 'react-native';
+import {connect} from 'react-redux';
+const axios = require('axios'); // A promise-based HTTP client
 
-export default class LoginScene extends Component {
+const mapDispatchToProps = (dispatch) => ({
+  login: async (props) => {
+    dispatch({
+      type: 'REQUEST_TOKEN',
+    });
+
+    const axiosConfig = {
+      method: 'post',
+      baseURL: 'http://10.0.2.2:3000',
+      url: '/api/login/',
+      data: {
+        username: props.username,
+        password: props.password,
+      },
+    };
+    try {
+      const response = await axios(axiosConfig);
+
+      console.log(response.status);
+
+      if (response.status === 200) {
+        dispatch({
+          type: 'RECEIVED_TOKEN',
+          token: response.data.token,
+        });
+
+        console.log(response.data.message);
+        const {navigate} = props.navigation;
+        navigate('Home');
+      } else {
+        Alert.alert('Login failed', response.data.message);
+      }
+    } catch (error) {
+      dispatch({
+        type: 'REQUEST_FAILED',
+      });
+      console.log(error.response.data.message);
+      Alert.alert('Login failed', error.response.data.message);
+    }
+  },
+});
+
+class LoginScene extends Component {
   username = '';
   password = '';
 
@@ -36,31 +78,28 @@ export default class LoginScene extends Component {
   /**
    * 点击空白处使输入框失去焦点
    */
-  // blurTextInput = () => {
-  //   this.refs.username.blur();
-  //   this.refs.password.blur();
-  // };
+  blurTextInput = () => {
+    this.refs.username.blur();
+    this.refs.password.blur();
+  };
 
   /**
    * 登陆按钮，点击时验证输入的用户名和密码是否正确，正确时进入主页面，否则弹出提示
    */
   login = () => {
-    if (this.username == 'gys' && this.password == '123') {
-      // this.refs.username.blur();
-      // this.refs.password.blur();
-      const {navigate} = this.props.navigation; //获取navigation的navigate方法
-      navigate('Home'); //跳转到注册过的Home界面
-    } else {
-      Alert.alert('Failed', 'ID or password error'); //弹出提示框
-    }
+    this.props.login({
+      ...this.props,
+      username: this.username,
+      password: this.password,
+    });
   };
 
   /**
    * 注册按钮，点击进入注册界面
    */
   register = () => {
-    const {navigate} = this.props.navigation; //获取navigation的navigate方法
-    navigate('Register'); //跳转到注册过的Register界面
+    const {navigate} = this.props.navigation;
+    navigate('Register');
   };
 
   render() {
@@ -69,24 +108,24 @@ export default class LoginScene extends Component {
         style={styles.container}
         resizeMode="cover"
         source={require('./registerCar.jpeg')}>
-        <TouchableOpacity //用可点击的组件作为背景
-          activeOpacity={1.0} //设置背景被点击时的透明度改变值
-          // onPress={this.blurTextInput} //添加点击事件
+        <TouchableOpacity
+          activeOpacity={1.0}
+          // onPress={this.blurTextInput}
         >
           <View style={styles.inputBox}>
             <TextInput
-              ref="username" //设置描述
+              ref="username"
               onChangeText={this.onUsernameChanged} //添加值改变事件
               style={styles.input}
               autoCapitalize="none" //设置首字母不自动大写
               underlineColorAndroid={'transparent'} //将下划线颜色改为透明
               placeholderTextColor={'#ccc'} //设置占位符颜色
-              placeholder={'ID'} //设置占位符
+              placeholder={'Username'} //设置占位符
             />
           </View>
           <View style={styles.inputBox}>
             <TextInput
-              ref="password" //设置描述
+              ref="password"
               onChangeText={this.onPasswordChanged} //添加值改变事件
               style={styles.input}
               autoCapitalize="none" //设置首字母不自动大写
@@ -154,3 +193,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+
+export default connect(null, mapDispatchToProps)(LoginScene);
