@@ -106,7 +106,7 @@ export default class RegisterScene extends Component {
       <ImageBackground
         style={styles.container}
         resizeMode="cover"
-        source={require('./registerCar.jpeg')}>
+        source={require('../data/registerCar.jpeg')}>
         <TouchableOpacity
           activeOpacity={1.0} //设置背景被点击时，透明度不变
           onPress={this.blurTextInput}>

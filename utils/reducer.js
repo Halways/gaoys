@@ -16,11 +16,11 @@ const initialState = {
 exports.reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'REQUEST_TOKEN':
-      return {token: state.token, isLoading: true};
+      return {...state, isLoading: true};
     case 'RECEIVED_TOKEN':
-      return {token: action.token, isLoading: false};
+      return {...state, token: action.token, isLoading: false};
     case 'REQUEST_FAILED':
-      return {token: state.token, isLoading: false};
+      return {...state, isLoading: false};
 
     default:
       break;

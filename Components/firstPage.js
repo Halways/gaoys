@@ -17,7 +17,7 @@ export default class FirstPage extends Component {
     return (
       <View style={styles.container}>
         <ImageBackground
-          source={require('./original.jpg')}
+          source={require('../data/original.jpg')}
           style={{width: '100%', height: '100%'}}>
           <TouchableOpacity
             style={styles.touchable}

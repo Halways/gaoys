@@ -62,7 +62,6 @@ class LoginScene extends Component {
    * @param  {[type]} newUsername [输入的用户名]
    */
   onUsernameChanged = (newUsername) => {
-    console.log(newUsername); //运行后可以在输入框随意输入内容并且查看log验证！
     this.username = newUsername;
   };
 
@@ -71,7 +70,6 @@ class LoginScene extends Component {
    * @param  {[type]} newUsername [输入的密码]
    */
   onPasswordChanged = (newPassword) => {
-    console.log(newPassword); //运行后可以在输入框随意输入内容并且查看log验证！
     this.password = newPassword;
   };
 
@@ -107,7 +105,7 @@ class LoginScene extends Component {
       <ImageBackground
         style={styles.container}
         resizeMode="cover"
-        source={require('./registerCar.jpeg')}>
+        source={require('../data/registerCar.jpeg')}>
         <TouchableOpacity
           activeOpacity={1.0}
           // onPress={this.blurTextInput}

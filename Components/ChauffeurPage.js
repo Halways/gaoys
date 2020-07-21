@@ -10,14 +10,13 @@ import {
 } from 'react-native';
 import flatListData from './flatlistData';
 
-export class Hire extends Component {
+export class Chauffeur extends Component {
   state = {
     modalVisible: false,
-    newDestination: '',
-    newPrice: '',
-    newDpTime: '',
-    newPkLocation: '',
-    newPhone: '',
+    destination: '',
+    price: '',
+    departuerTime: '',
+    pickupLocation: '',
   };
 
   setModalVisible = (visible) => {
@@ -40,33 +39,27 @@ export class Hire extends Component {
               <Text style={styles.modalText}>Add New Travel</Text>
               <TextInput
                 style={styles.inputStyle}
-                onChangeText={(text) => this.setState({newDestination: text})}
+                onChangeText={(text) => this.setState({destination: text})}
                 placeholder="Enter new destination"
                 value={this.state.newDestination}
               />
               <TextInput
                 style={styles.inputStyle}
-                onChangeText={(text) => this.setState({newPrice: text})}
+                onChangeText={(text) => this.setState({price: text})}
                 placeholder="Enter price"
                 value={this.state.newPrice}
               />
               <TextInput
                 style={styles.inputStyle}
-                onChangeText={(text) => this.setState({newDpTime: text})}
+                onChangeText={(text) => this.setState({departuerTime: text})}
                 placeholder="Enter departure time"
                 value={this.state.newDpTime}
               />
               <TextInput
                 style={styles.inputStyle}
-                onChangeText={(text) => this.setState({newPkLocation: text})}
+                onChangeText={(text) => this.setState({pickupLocation: text})}
                 placeholder="Enter pick up location"
                 value={this.state.newPkLocation}
-              />
-              <TextInput
-                style={styles.inputStyle}
-                onChangeText={(text) => this.setState({newPhone: text})}
-                placeholder="Enter phone number"
-                value={this.state.newPhone}
               />
               <TouchableOpacity
                 style={{...styles.openButton, backgroundColor: '#2196F3'}}
@@ -76,7 +69,6 @@ export class Hire extends Component {
                   this.setState({newPrice: ''});
                   this.setState({newDpTime: ''});
                   this.setState({newPkLocation: ''});
-                  this.setState({newPhone: ''});
                 }}>
                 <Text style={styles.textStyle}>Save</Text>
               </TouchableOpacity>
@@ -99,9 +91,9 @@ export class Hire extends Component {
                 style={{
                   flexDirection: 'row',
                   alignItems: 'flex-start',
-                  backgroundColor: '#4fff60',
-                  margin: 10,
                   alignContent: 'stretch',
+                  margin: 10,
+                  backgroundColor: '#ff7575',
                 }}
                 onPress={() => this.props.navigation.navigate('DetailPage')}>
                 <Text style={styles.item}>{item.name}</Text>
@@ -131,13 +123,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalView: {
-    backgroundColor: '#b9d5c5',
+    backgroundColor: 'white',
     borderRadius: 20,
-    padding: 30,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+    padding: 30,
     elevation: 5,
   },
   openButton: {
@@ -150,7 +142,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 25,
   },
   modalText: {
     marginBottom: 1,
@@ -166,20 +158,22 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderBottomWidth: 1,
     fontSize: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   container: {
     flex: 1,
-    backgroundColor: 'pink',
+    backgroundColor: 'white',
     paddingHorizontal: 1,
-    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'column',
   },
   item: {
     flexDirection: 'row',
     marginTop: 10,
     padding: 30,
-    backgroundColor: '#41d7a7',
+    backgroundColor: 'pink',
     fontSize: 24,
     marginHorizontal: 10,
     marginBottom: 10,

@@ -4,17 +4,16 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {Provider} from 'react-redux';
-import store from './store';
+import store from './utils/store';
 
-import FirstPage from './firstPage';
-import LoginScene from './LoginScene';
-import RegisterScene from './RegisterScene';
-import {InfoPage} from './infoPage';
-import {aboutPage} from './About';
-import {historyPage} from './History';
-import {Chauffeur} from './ChauffeurPage';
-import {Hire} from './HirePage';
-import {detailPage} from './DetailInfo';
+import FirstPage from './Components/firstPage';
+import LoginScene from './Components/LoginScene';
+import RegisterScene from './Components/RegisterScene';
+import {InfoPage} from './Components/infoPage';
+import {aboutPage} from './Components/About';
+import {historyPage} from './Components/History';
+import {Chauffeur} from './Components/ChauffeurPage';
+import HirePage from './Components/HirePage';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -24,9 +23,8 @@ function insideHome() {
       <Stack.Screen name="Login" component={LoginScene} />
       <Stack.Screen name="Register" component={RegisterScene} />
       <Stack.Screen name="Home" component={FirstPage} />
-      <Stack.Screen name="HirePage" component={Hire} />
+      <Stack.Screen name="HirePage" component={HirePage} />
       <Stack.Screen name="ChauffeurPage" component={Chauffeur} />
-      <Stack.Screen name="DetailPage" component={detailPage} />
     </Stack.Navigator>
   );
 }
