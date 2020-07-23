@@ -1,43 +1,38 @@
-import {Component} from 'react';
 import * as React from 'react';
-import {View, Text, Button} from 'react-native';
+import {View, Text} from 'react-native';
+import {useDispatch} from 'react-redux';
 
-import {
-  Alert,
-  ImageBackground,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import {ImageBackground, StyleSheet, TouchableOpacity} from 'react-native';
 
-export default class FirstPage extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-      <View style={styles.container}>
-        <ImageBackground
-          source={require('../data/original.jpg')}
-          style={{width: '100%', height: '100%'}}>
-          <TouchableOpacity
-            style={styles.touchable}
-            onPress={() => this.props.navigation.navigate('HirePage')}
-            underlayColor="white">
-            <View style={styles.button1}>
-              <Text style={styles.buttonText}>Hire</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.touchable}
-            onPress={() => this.props.navigation.navigate('ChauffeurPage')}>
-            <View style={styles.button2}>
-              <Text style={styles.buttonText}>Chauffeur</Text>
-            </View>
-          </TouchableOpacity>
-        </ImageBackground>
-      </View>
-    );
-  }
+export default function FirstPage(props) {
+  const dispatch = useDispatch();
+
+  return (
+    <View style={styles.container}>
+      <ImageBackground
+        source={require('../data/original.jpg')}
+        style={{width: '100%', height: '100%'}}>
+        <TouchableOpacity
+          style={styles.touchable}
+          onPress={() => {
+            dispatch({type: 'REFRESH'});
+            props.navigation.navigate('HirePage');
+          }}
+          underlayColor="white">
+          <View style={styles.button1}>
+            <Text style={styles.buttonText}>Hire</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.touchable}
+          onPress={() => props.navigation.navigate('ChauffeurPage')}>
+          <View style={styles.button2}>
+            <Text style={styles.buttonText}>Chauffeur</Text>
+          </View>
+        </TouchableOpacity>
+      </ImageBackground>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

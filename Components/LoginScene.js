@@ -37,6 +37,7 @@ const mapDispatchToProps = (dispatch) => ({
           token: response.data.token,
         });
 
+        axios.defaults.headers.common.Authorization = `Bearer ${response.data.token}`;
         console.log(response.data.message);
         const {navigate} = props.navigation;
         navigate('Home');

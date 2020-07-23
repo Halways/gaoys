@@ -4,6 +4,8 @@
 const initialState = {
   token: undefined,
   isLoading: false,
+  modalVisible: 0,
+  refresh: true,
 };
 
 /**
@@ -15,12 +17,20 @@ const initialState = {
  */
 exports.reducer = (state = initialState, action) => {
   switch (action.type) {
+    case 'SEND_REQUEST':
     case 'REQUEST_TOKEN':
       return {...state, isLoading: true};
     case 'RECEIVED_TOKEN':
       return {...state, token: action.token, isLoading: false};
+    case 'REQUEST_COMPLETED':
     case 'REQUEST_FAILED':
       return {...state, isLoading: false};
+    case 'SET_MODAL_VISIBLE':
+      return {...state, modalVisible: action.payload};
+    case 'REFRESH':
+      return {...state, refresh: true};
+    case 'REFRESH_DONE':
+      return {...state, refresh: false};
 
     default:
       break;

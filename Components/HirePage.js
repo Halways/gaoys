@@ -1,206 +1,15 @@
-// import React, {Component} from 'react';
-// import {
-//   Modal,
-//   StyleSheet,
-//   Text,
-//   View,
-//   TextInput,
-//   FlatList,
-//   TouchableOpacity,
-// } from 'react-native';
-// import flatListData from './flatlistData';
-
-// export class Hire extends Component {
-//   state = {
-//     modalVisible: false,
-//     newDestination: '',
-//     newPrice: '',
-//     newDpTime: '',
-//     newPkLocation: '',
-//     newPhone: '',
-//     data: [],
-//   };
-
-//   setModalVisible = (visible) => {
-//     this.setState({modalVisible: visible});
-//   };
-
-//   render() {
-//     const {modalVisible} = this.state;
-//     return (
-//       <View style={styles.centeredView}>
-//         <Modal
-//           animationType="slide"
-//           transparent={true}
-//           visible={modalVisible}
-//           onRequestClose={() => {
-//             this.setModalVisible(!modalVisible);
-//           }}>
-//           <View style={styles.centeredView}>
-//             <View style={styles.modalView}>
-//               <Text style={styles.modalText}>Add New Travel</Text>
-//               <TextInput
-//                 style={styles.inputStyle}
-//                 onChangeText={(text) => this.setState({newDestination: text})}
-//                 placeholder="Enter new destination"
-//                 value={this.state.newDestination}
-//               />
-//               <TextInput
-//                 style={styles.inputStyle}
-//                 onChangeText={(text) => this.setState({newPrice: text})}
-//                 placeholder="Enter price"
-//                 value={this.state.newPrice}
-//               />
-//               <TextInput
-//                 style={styles.inputStyle}
-//                 onChangeText={(text) => this.setState({newDpTime: text})}
-//                 placeholder="Enter departure time"
-//                 value={this.state.newDpTime}
-//               />
-//               <TextInput
-//                 style={styles.inputStyle}
-//                 onChangeText={(text) => this.setState({newPkLocation: text})}
-//                 placeholder="Enter pick up location"
-//                 value={this.state.newPkLocation}
-//               />
-//               <TouchableOpacity
-//                 style={{...styles.openButton, backgroundColor: '#2196F3'}}
-//                 onPress={() => {
-//                   this.setModalVisible(!modalVisible);
-//                   this.setState({newDestination: ''});
-//                   this.setState({newPrice: ''});
-//                   this.setState({newDpTime: ''});
-//                   this.setState({newPkLocation: ''});
-//                 }}>
-//                 <Text style={styles.textStyle}>Save</Text>
-//               </TouchableOpacity>
-//             </View>
-//           </View>
-//         </Modal>
-
-//         {/*<TouchableHighlight*/}
-//         {/*  style={styles.openButton}*/}
-//         {/*  onPress={() => {*/}
-//         {/*    this.setModalVisible(true);*/}
-//         {/*  }}>*/}
-//         {/*  <Text style={styles.textStyle}>Show Modal</Text>*/}
-//         {/*</TouchableHighlight>*/}
-//         <View style={styles.container}>
-//           <FlatList
-//             data={flatListData}
-//             renderItem={({item}) => (
-//               <TouchableOpacity
-//                 style={{
-//                   flexDirection: 'row',
-//                   alignItems: 'flex-start',
-//                   backgroundColor: '#4fff60',
-//                   margin: 10,
-//                   alignContent: 'stretch',
-//                 }}
-//                 onPress={() => this.props.navigation.navigate('DetailPage')}>
-//                 <Text style={styles.item}>{item.name}</Text>
-//                 <Text style={styles.item}>{item.price}</Text>
-//               </TouchableOpacity>
-//             )}
-//           />
-//           <TouchableOpacity
-//             style={styles.button}
-//             onPress={() => {
-//               this.setModalVisible(true);
-//             }}>
-//             <View>
-//               <Text style={{fontSize: 25}}>Add Travel</Text>
-//             </View>
-//           </TouchableOpacity>
-//         </View>
-//       </View>
-//     );
-//   }
-// }
-
-// const styles = StyleSheet.create({
-//   centeredView: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-//   modalView: {
-//     backgroundColor: '#b9d5c5',
-//     borderRadius: 20,
-//     padding: 30,
-//     alignItems: 'center',
-//     shadowColor: '#000',
-//     shadowOpacity: 0.25,
-//     shadowRadius: 3.84,
-//     elevation: 5,
-//   },
-//   openButton: {
-//     backgroundColor: '#F194FF',
-//     borderRadius: 20,
-//     padding: 20,
-//     elevation: 2,
-//   },
-//   textStyle: {
-//     color: 'white',
-//     fontWeight: 'bold',
-//     textAlign: 'center',
-//     fontSize: 20,
-//   },
-//   modalText: {
-//     marginBottom: 1,
-//     textAlign: 'center',
-//     fontSize: 30,
-//   },
-//   inputStyle: {
-//     padding: 1,
-//     height: 40,
-//     borderBottomColor: 'gray',
-//     marginLeft: 30,
-//     marginRight: 30,
-//     marginBottom: 10,
-//     borderBottomWidth: 1,
-//     fontSize: 20,
-//   },
-//   container: {
-//     flex: 1,
-//     backgroundColor: 'pink',
-//     paddingHorizontal: 1,
-//     flexDirection: 'column',
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-//   item: {
-//     flexDirection: 'row',
-//     marginTop: 10,
-//     padding: 30,
-//     backgroundColor: '#41d7a7',
-//     fontSize: 24,
-//     marginHorizontal: 10,
-//     marginBottom: 10,
-//   },
-//   button: {
-//     fontSize: 50,
-//     backgroundColor: '#90b0ea',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     borderRadius: 30,
-//     height: 50,
-//     width: 200,
-//     shadowColor: '#56a9c8',
-//   },
-// });
-
 import * as React from 'react';
-import {useEffect, useState} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import {useEffect, useState, useRef} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {View, StyleSheet, Text, FlatList, TouchableOpacity} from 'react-native';
 import {Card, Icon} from 'react-native-elements';
 import Modal from 'react-native-modal';
-import {not} from 'react-native-reanimated';
+import ActionButton from 'react-native-action-button';
 const axios = require('axios'); // A promise-based HTTP client
+import NewTripForm from './NewTripForm';
 
 function HirePage() {
-  let [page, updatePage] = useState(0);
+  let page = useRef(0); // Create a mutable but persistent object
   let [hasMore, updateHasMore] = useState(true);
   let [data, updateData] = useState([]);
   const initialDetail = {
@@ -212,36 +21,54 @@ function HirePage() {
     price: '',
   };
   let [detail, updateDetail] = useState(initialDetail);
-  let [modalVisible, updateModalVisible] = useState(0);
-  const token = useSelector((state) => state.token);
+  let modalVisible = useSelector((state) => state.modalVisible);
+  let refresh = useSelector((state) => state.refresh);
   const dispatch = useDispatch();
 
+  /**
+   * Request the list data (with pagination).
+   */
   let requestData = async () => {
-    if (!hasMore) {
-      return;
+    if (refresh) {
+      page.current = 0;
     }
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-    const axiosConfig = {
+
+    let axiosConfig = {
       method: 'get',
       baseURL: 'http://10.0.2.2:3000',
-      url: `/api/trips/driver?page=${page}`,
+      url: `/api/trips/driver?page=${page.current}`,
     };
+
+    if (!hasMore && !refresh) {
+      return;
+    }
 
     try {
       let response = await axios(axiosConfig);
-      updateData(data.concat(response.data.trips));
+
       if (response.data.has_more) {
-        updatePage(page + 1);
+        page.current++;
       } else {
         updateHasMore(false);
+      }
+
+      if (refresh) {
+        updateData(response.data.trips);
+        dispatch({
+          type: 'REFRESH_DONE',
+        });
+      } else {
+        updateData(data.concat(response.data.trips));
       }
     } catch (error) {
       console.log(error.response);
     }
   };
 
+  /**
+   * Request the detail data given the trip id.
+   */
   let requestDetail = async (tid) => {
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
     const axiosConfig = {
       method: 'get',
       baseURL: 'http://10.0.2.2:3000',
@@ -251,20 +78,19 @@ function HirePage() {
     try {
       let response = await axios(axiosConfig);
       updateDetail(response.data[0]);
-      updateModalVisible(1);
+      dispatch({
+        type: 'SET_MODAL_VISIBLE',
+        payload: 1,
+      });
     } catch (error) {
       console.log(error.response);
     }
   };
 
-  let _keyExtractor = (item) => {
-    return `${item.id}`;
-  };
-
-  let _renderModalContent = () => (
+  let _renderDetailModal = () => (
     <View style={styles.modalContent}>
       <Text style={styles.titleText}>Trip Detail</Text>
-      <View style={styles.navBar}>
+      <View style={styles.rowContainer}>
         <View style={styles.leftContainer}>
           <Text style={{color: 'grey'}}>FROM</Text>
         </View>
@@ -272,7 +98,7 @@ function HirePage() {
           <Text style={{color: 'grey'}}>TO</Text>
         </View>
       </View>
-      <View style={styles.navBar}>
+      <View style={styles.rowContainer}>
         <View style={styles.leftContainer}>
           <Text>{detail.pickupLocation}</Text>
         </View>
@@ -283,7 +109,7 @@ function HirePage() {
           <Text>{detail.destination}</Text>
         </View>
       </View>
-      <View style={styles.navBar}>
+      <View style={styles.rowContainer}>
         <View style={styles.leftContainer}>
           <Text>Departure Time:</Text>
         </View>
@@ -291,7 +117,7 @@ function HirePage() {
           <Text>{detail.departureTime}</Text>
         </View>
       </View>
-      <View style={styles.navBar}>
+      <View style={styles.rowContainer}>
         <View style={styles.leftContainer}>
           <Text>Price:</Text>
         </View>
@@ -299,7 +125,7 @@ function HirePage() {
           <Text>{detail.price} RM</Text>
         </View>
       </View>
-      <View style={styles.navBar}>
+      <View style={styles.rowContainer}>
         <View style={styles.leftContainer}>
           <Text>Driver ID:</Text>
         </View>
@@ -307,7 +133,7 @@ function HirePage() {
           <Text>{detail.username}</Text>
         </View>
       </View>
-      <View style={styles.navBar}>
+      <View style={styles.rowContainer}>
         <View style={styles.leftContainer}>
           <Text>Driver Phone:</Text>
         </View>
@@ -320,7 +146,10 @@ function HirePage() {
         <TouchableOpacity
           onPress={() => {
             updateDetail(initialDetail);
-            updateModalVisible(0);
+            dispatch({
+              type: 'SET_MODAL_VISIBLE',
+              payload: 0,
+            });
           }}
           style={styles.button}>
           <View>
@@ -330,7 +159,10 @@ function HirePage() {
         <TouchableOpacity
           onPress={() => {
             console.log('Calling the driver...');
-            updateModalVisible(0);
+            dispatch({
+              type: 'SET_MODAL_VISIBLE',
+              payload: 0,
+            });
           }}
           style={styles.button}>
           <View>
@@ -341,25 +173,62 @@ function HirePage() {
     </View>
   );
 
+  let _renderNewTripModal = () => (
+    <View style={styles.modalContent}>
+      <Text style={styles.titleText}>Add a New Trip</Text>
+      <NewTripForm />
+    </View>
+  );
+
   useEffect(() => {
-    requestData();
+    if (refresh) {
+      requestData();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [refresh]);
 
   return (
     <>
       <View>
-        <Modal isVisible={modalVisible === 1}>{_renderModalContent()}</Modal>
+        <Modal
+          backdropTransitionOutTiming={0}
+          isVisible={modalVisible === 1}
+          onBackdropPress={() =>
+            dispatch({
+              type: 'SET_MODAL_VISIBLE',
+              payload: 0,
+            })
+          }>
+          {_renderDetailModal()}
+        </Modal>
+        <Modal
+          backdropTransitionOutTiming={0}
+          onBackdropPress={() =>
+            dispatch({
+              type: 'SET_MODAL_VISIBLE',
+              payload: 0,
+            })
+          }
+          isVisible={modalVisible === 2}
+          onRequestClose={() =>
+            dispatch({
+              type: 'SET_MODAL_VISIBLE',
+              payload: 0,
+            })
+          }>
+          {_renderNewTripModal()}
+        </Modal>
 
         <FlatList
+          style={{paddingBottom: 20, marginBottom: 20}}
           data={data}
-          keyExtractor={_keyExtractor}
+          keyExtractor={(item) => `${item.id}`}
           renderItem={({item}) => (
             <Card>
               <TouchableOpacity
                 style={styles.grid}
                 onPress={() => requestDetail(item.id)}>
-                <View style={styles.navBar}>
+                <View style={styles.rowContainer}>
                   <View style={styles.leftContainer}>
                     <Text style={{color: 'grey'}}>FROM</Text>
                   </View>
@@ -367,7 +236,7 @@ function HirePage() {
                     <Text style={{color: 'grey'}}>TO</Text>
                   </View>
                 </View>
-                <View style={styles.navBar}>
+                <View style={styles.rowContainer}>
                   <View style={styles.leftContainer}>
                     <Text>{item.pickupLocation}</Text>
                   </View>
@@ -378,7 +247,7 @@ function HirePage() {
                     <Text>{item.destination}</Text>
                   </View>
                 </View>
-                <View style={styles.navBar}>
+                <View style={styles.rowContainer}>
                   <View style={styles.leftContainer}>
                     <Text>Departure Time:</Text>
                   </View>
@@ -386,7 +255,7 @@ function HirePage() {
                     <Text>{item.departureTime}</Text>
                   </View>
                 </View>
-                <View style={styles.navBar}>
+                <View style={styles.rowContainer}>
                   <View style={styles.leftContainer}>
                     <Text>Price:</Text>
                   </View>
@@ -399,6 +268,19 @@ function HirePage() {
           )}
           onEndReached={() => requestData()}
           onEndReachedThreshold={0.5}
+        />
+
+        <ActionButton
+          buttonColor="#3498db"
+          position="center"
+          style={{position: 'absolute'}}
+          degrees={0}
+          onPress={() =>
+            dispatch({
+              type: 'SET_MODAL_VISIBLE',
+              payload: 2,
+            })
+          }
         />
       </View>
     </>
@@ -413,7 +295,7 @@ const styles = StyleSheet.create({
     padding: 5,
     alignContent: 'stretch',
   },
-  navBar: {
+  rowContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'stretch',
