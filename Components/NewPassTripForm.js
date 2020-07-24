@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import DatePicker from 'react-native-date-picker';
 const axios = require('axios'); // A promise-based HTTP client
 
-function NewTripForm() {
+function NewPassTripForm() {
   const token = useSelector((state) => state.token);
   const dispatch = useDispatch();
 
@@ -32,7 +32,7 @@ function NewTripForm() {
     const axiosConfig = {
       method: 'post',
       baseURL: 'http://10.0.2.2:3000',
-      url: '/api/trips/driver',
+      url: '/api/trips/passenger',
       data: {
         userid: userid,
         pickupLocation: values.pickupLocation,
@@ -207,4 +207,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewTripForm;
+export default NewPassTripForm;

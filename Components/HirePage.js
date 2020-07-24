@@ -6,7 +6,7 @@ import {Card, Icon} from 'react-native-elements';
 import Modal from 'react-native-modal';
 import ActionButton from 'react-native-action-button';
 const axios = require('axios'); // A promise-based HTTP client
-import NewTripForm from './NewTripForm';
+import NewDriverTripForm from './NewDriverTripForm';
 
 function HirePage() {
   let page = useRef(0); // Create a mutable but persistent object
@@ -176,7 +176,7 @@ function HirePage() {
   let _renderNewTripModal = () => (
     <View style={styles.modalContent}>
       <Text style={styles.titleText}>Add a New Trip</Text>
-      <NewTripForm />
+      <NewDriverTripForm />
     </View>
   );
 

@@ -12,7 +12,7 @@ import RegisterScene from './Components/RegisterScene';
 import {InfoPage} from './Components/infoPage';
 import {aboutPage} from './Components/About';
 import {historyPage} from './Components/History';
-import {Chauffeur} from './Components/ChauffeurPage';
+import Chauffeur from './Components/ChauffeurPage';
 import HirePage from './Components/HirePage';
 
 const Stack = createStackNavigator();

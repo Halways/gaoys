@@ -25,7 +25,10 @@ export default function FirstPage(props) {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.touchable}
-          onPress={() => props.navigation.navigate('ChauffeurPage')}>
+          onPress={() => {
+            dispatch({type: 'REFRESH'});
+            props.navigation.navigate('ChauffeurPage');
+          }}>
           <View style={styles.button2}>
             <Text style={styles.buttonText}>Chauffeur</Text>
           </View>
